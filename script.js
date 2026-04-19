@@ -110,3 +110,76 @@ function DailyPlanner(){
 DailyPlanner();
 
 
+// Motivation
+function motivationalQuote(){
+    let motivationQuote = document.querySelector('.motivation2 h1');
+    let motivationAuthor = document.querySelector('.motivation3 h2');
+    async function fetchQuote(){
+        let response = await fetch('https://dummyjson.com/quotes/random');
+        let data = await response.json();
+        console.log(data.author);
+        motivationQuote.innerHTML = data.quote;
+        motivationAuthor.innerHTML = data.author;
+    }
+    fetchQuote();
+}
+motivationalQuote();
+
+
+
+function PomodoroTimer(){
+    let timer = document.querySelector('.pomo-timer h1');
+    let startBtn = document.querySelector('.start-timer');
+    let pauseBtn = document.querySelector('.pause-timer');
+    let resetBtn = document.querySelector('.reset-timer');
+    let sessionType = document.querySelector('.session');
+    let Timerinterval = null;
+    let isWorkSession = true;
+
+    let totalSecond = 25*60;
+    // Logic behind update timer. Total Time decreases every second
+    function updateTimer(){
+        let minutes = Math.floor(totalSecond / 60);
+        let seconds = totalSecond % 60;
+        timer.innerHTML = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    // Updates Timer every second
+    function startTimer(){
+        clearInterval(Timerinterval);
+        Timerinterval = setInterval(function(){
+            if(totalSecond > 0){
+                totalSecond--;
+                updateTimer();
+            } else {
+                // Switch sessions automatically
+                isWorkSession = !isWorkSession;
+                if(isWorkSession){
+                    totalSecond = 25 * 60;
+                    sessionType.innerHTML = 'Work Session';
+                    sessionType.style.backgroundColor = 'var(--green)';
+                } else {
+                    totalSecond = 5 * 60;
+                    sessionType.innerHTML = 'Break Session';
+                    sessionType.style.backgroundColor = 'var(--blue)';
+                }
+                updateTimer();
+            }
+        }, 1000);
+    }
+    startBtn.addEventListener('click', startTimer);
+
+    // Pause Timer
+    function pauseTimer(){
+        clearInterval(Timerinterval);
+    }
+    pauseBtn.addEventListener('click', pauseTimer);
+
+    // Reset Timer
+    function resetTimer(){
+        totalSecond = 25*60;
+        clearInterval(Timerinterval);
+        updateTimer();
+    }
+    resetBtn.addEventListener('click', resetTimer);
+}
+PomodoroTimer();
