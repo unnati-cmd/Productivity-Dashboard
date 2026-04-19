@@ -1,8 +1,10 @@
 :root{ /*Global color Variables*/
-    --pri: #FCDEC0;
-    --sec: #2c1a0f;
-    --tri1: #FEBA17;
-    --tri2: #74512D;
+    --pri: #2c3e50;
+    --sec: #f8f9fa;
+    --tri1: #4a90e2;
+    --tri2: #e9ecef;
+    --red: red;
+    --black: black;
     --green:  rgb(41, 154, 109);
     --blue: rgb(0, 135, 246);
 }
@@ -45,27 +47,72 @@ body {
     background-color: var(--sec);
 }
 
-nav{
-    position: fixed;
-    width: 100%;
-    height: 60px;
-    background-color: var(--tri2);
-}
-
 section.allElems{
     height: 100%;
     width: 100%;
-    padding: 40px;
-    padding-top: 80px;
+    padding: 30px;
+    padding-top: 30px;
+    position: absolute;
+    overflow: auto;
+}
+
+.allElems header{
+    height: 230px;
+    width: 100%;
+    background-color: var(--tri2);
+    margin-bottom: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    padding: 30px;
+    background-image: url('https://plus.unsplash.com/premium_photo-1668091148044-056cd744e64a?q=80&w=1190&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+}
+
+header .header1 h1{
+    font-size: 50px;
+    font-weight: 700;
+}
+
+header .header1 h4{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+header .header2 h2{
+    font-size: 25px;
+}
+
+header .header2 h3{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+header .header2 h4{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+header .header2 h5{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+header .header2 h6{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.allElems .allFeatures{
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     gap: 20px;
-    position: absolute;
 }
 
 .elem{
-    background-color: #FEBA17;
+    background-color: var(--tri1);
     height: 300px;
     width: 220px;
     border-radius: 10px;
@@ -101,14 +148,14 @@ section.allElems{
 
 .backing:hover{
     bottom: 0;
-    background: radial-gradient(circle, transparent, black);
+    background: radial-gradient(circle, transparent, var(--black));
     transition: all ease 0.1s;
 }
 
 .fullElements{
     height: 100%;
     width: 100%;
-    background-color: #2c1a0f;
+    background-color: var(--sec);
     padding: 40px;
     display: none;
     position: absolute;
@@ -117,7 +164,7 @@ section.allElems{
 .back{
     position: absolute;
     right: 5%;
-    background-color: red;
+    background-color: var(--red);
     border-radius:10px;
     padding: 7px 9px;
     font-size: 17px;
@@ -152,7 +199,7 @@ section.allElems{
 .todo-list-fullpage .todo-container .addTask{
     width: 33%;
     height: 100%;
-    background-color: #74512D;
+    background-color: var(--tri2);
     border-radius: 20px;
     padding: 30px;
 }
@@ -160,7 +207,7 @@ section.allElems{
 .todo-list-fullpage .todo-container .allTask{
     width: 65%;
     height: 100%;
-    background-color: #74512D;
+    background-color: var(--tri2);
     border-radius: 20px;
 }
 
@@ -245,7 +292,7 @@ section.allElems{
 }
 
 .task h5 span{
-    background-color: red;
+    background-color: var(--red);
     color: var(--pri);
     font-size: 12px;
     border-radius: 50px;
@@ -435,7 +482,7 @@ section.allElems{
 .pomodoro-fullpage{
     /* display: block; */
     position:relative;
-    background-image: url('https://images.unsplash.com/photo-1774550419023-b7970cba9d65?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-image: url('https://images.unsplash.com/photo-1771149075220-71d843d3a7ee?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     background-size: cover;
     background-position: center;
 }
@@ -476,20 +523,36 @@ section.allElems{
     position: absolute;
     top: 20%;
     left: 50%;
-    transform: (-50%, 0);
-    background-color: #FEBA17;
-    padding: 10px 30px;
+    transform: translate(-50%, 0);
+    background-color: var(--tri1);
+    padding: 7px 10px;
     font-size: 30px;
     border-radius: 5px;
 }
 
-.pomodoro-fullpage .session{
+.theme{
     position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background-color: var(--green);
-    padding: 7px 10px;
-    font-size: 30px;
-    border-radius: 5px;
+    top: 6.4%;
+    right: 13%;
+    background-color: var(--pri);
+    height: 30px;
+    width: 60px;
+    border: none;
+    border-radius: 30px;
+    transition: all ease 0.3s;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.7);
+}
+
+.day{
+    background-image: url('https://images.unsplash.com/photo-1774017092224-54c07e928a39?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxM3x8fGVufDB8fHx8fA%3D%3D');
+    background-position: center;
+}
+
+.night{
+    background-image: url('https://images.unsplash.com/photo-1776320644111-f72194d35eb8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8');
+    background-position: center;
+}
+
+.theme:active{
+    scale: 0.95;
 }

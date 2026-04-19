@@ -183,3 +183,75 @@ function PomodoroTimer(){
     resetBtn.addEventListener('click', resetTimer);
 }
 PomodoroTimer();
+
+
+// Weather JS
+function weather(){
+    let data = null;
+    var header1Date = document.querySelector('.header1 h1');
+    var header1Datee = document.querySelector('.header1 h2')
+    let header2Temp = document.querySelector('.header2 h2');
+    let header2condition = document.querySelector('.header2 h3');
+    let header2pressure = document.querySelector('.header2 h6');
+    let header2humidity = document.querySelector('.header2 h4');
+    let header2wind = document.querySelector('.header2 h5');
+
+
+    async function weatherAPICall(){
+        let city = 'Delhi';
+        let apiKey = `962608d1af53e7a43cb70f33f9f4ca11`;
+        let response = await fetch (`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`);
+        let data = await response.json();
+        console.log(data);
+
+        header2Temp.innerHTML = `${data.main.temp} °C`;
+        header2condition.innerHTML = data.weather[0].main;
+        header2pressure.innerHTML = `Pressure: ${data.main.pressure}`;
+        header2humidity.innerHTML = `Humidity: ${data.main.humidity}%`;
+        header2wind.innerHTML = `Wind Speed: ${data.wind.speed} m/s`;
+
+
+    }
+    weatherAPICall();
+    function timeDate(){
+        const totaldaysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const totalMonthsOfYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var date = new Date();
+        header1Datee.innerHTML = `${date.getDate()} ${totalMonthsOfYear[date.getMonth()]} ${date.getFullYear()}`;
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        var daysOfWeek = totaldaysOfWeek[date.getDay()];
+        if(hours > 12){
+            header1Date.innerHTML = `${daysOfWeek}, ${(hours - 12).toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} PM`;
+        } else {
+            header1Date.innerHTML = `${daysOfWeek}, ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} AM`;
+        }
+    }
+    setInterval(()=>{
+        timeDate();
+    },1000);
+}
+weather();
+
+var theme = document.querySelector('.theme');
+var rootElement = document.documentElement;
+theme.addEventListener('click', function(){
+    if (theme.classList.contains('day')) {
+        // Switch to night theme
+        theme.classList.remove('day');
+        theme.classList.add('night');
+        rootElement.style.setProperty('--pri', '#ffffff');  // white text
+        rootElement.style.setProperty('--sec', '#1a1a1a');   // dark background
+        rootElement.style.setProperty('--tri1', '#4a90e2');  // blue accent
+        rootElement.style.setProperty('--tri2', '#2c3e50');  // dark gray accent
+    } else {
+        // Switch to day theme
+        theme.classList.remove('night');
+        theme.classList.add('day');
+        rootElement.style.setProperty('--pri', '#2c3e50');   // dark text
+        rootElement.style.setProperty('--sec', '#f8f9fa');   // light gray background
+        rootElement.style.setProperty('--tri1', '#4a90e2');  // blue accent
+        rootElement.style.setProperty('--tri2', '#e9ecef');  // light accent
+    }
+})
