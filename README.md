@@ -27,6 +27,8 @@ A sleek and interactive Productivity Dashboard built using HTML, CSS, and JavaSc
 
 ## 🚀 How to Run the Project
 
+Live Link: [https://productivity-dashboard-9sr1bp1vg-unnati-cmds-projects.vercel.app/index.html](https://productivity-dashboard-9sr1bp1vg-unnati-cmds-projects.vercel.app/index.html)
+
 1. Clone the repository  
    git clone https://github.com/unnati-cmd/Productivity-Dashboard.git  
 
