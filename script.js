@@ -126,7 +126,7 @@ function motivationalQuote(){
 motivationalQuote();
 
 
-
+// Pomodoro Timer
 function PomodoroTimer(){
     let timer = document.querySelector('.pomo-timer h1');
     let startBtn = document.querySelector('.start-timer');
@@ -234,24 +234,155 @@ function weather(){
 }
 weather();
 
-var theme = document.querySelector('.theme');
-var rootElement = document.documentElement;
-theme.addEventListener('click', function(){
-    if (theme.classList.contains('day')) {
-        // Switch to night theme
-        theme.classList.remove('day');
-        theme.classList.add('night');
-        rootElement.style.setProperty('--pri', '#ffffff');  // white text
-        rootElement.style.setProperty('--sec', '#1a1a1a');   // dark background
-        rootElement.style.setProperty('--tri1', '#4a90e2');  // blue accent
-        rootElement.style.setProperty('--tri2', '#2c3e50');  // dark gray accent
-    } else {
-        // Switch to day theme
-        theme.classList.remove('night');
-        theme.classList.add('day');
-        rootElement.style.setProperty('--pri', '#2c3e50');   // dark text
-        rootElement.style.setProperty('--sec', '#f8f9fa');   // light gray background
-        rootElement.style.setProperty('--tri1', '#4a90e2');  // blue accent
-        rootElement.style.setProperty('--tri2', '#e9ecef');  // light accent
+
+// Theme toggle
+function themeToggle(){
+    var theme = document.querySelector('.theme');
+    var rootElement = document.documentElement;
+    theme.addEventListener('click', function(){
+        if (theme.classList.contains('day')) {
+            // Switch to night theme
+            theme.classList.remove('day');
+            theme.classList.add('night');
+            rootElement.style.setProperty('--pri', '#ffffff');  // white text
+            rootElement.style.setProperty('--sec', '#1a1a1a');   // dark background
+            rootElement.style.setProperty('--tri1', '#4a90e2');  // blue accent
+            rootElement.style.setProperty('--tri2', '#2c3e50');  // dark gray accent
+        } else {
+            // Switch to day theme
+            theme.classList.remove('night');
+            theme.classList.add('day');
+            rootElement.style.setProperty('--pri', '#2c3e50');   // dark text
+            rootElement.style.setProperty('--sec', '#f8f9fa');   // light gray background
+            rootElement.style.setProperty('--tri1', '#4a90e2');  // blue accent
+            rootElement.style.setProperty('--tri2', '#e9ecef');  // light accent
+        }
+    })
+}
+themeToggle();
+
+
+// Daily Goals
+function DailyGoals(){
+    let form = document.querySelector('.formdiv form');
+    let mindTask = JSON.parse(localStorage.getItem('mindTask')) || [];
+    let bodyTask = JSON.parse(localStorage.getItem('bodyTask')) || [];
+    let workTask = JSON.parse(localStorage.getItem('workTask')) || [];
+    let otherTask = JSON.parse(localStorage.getItem('otherTask')) || [];
+
+    const MindTask = document.querySelector('#mind-item');
+    const BodyTask = document.querySelector('#body-item');
+    const WorkTask = document.querySelector('#work-item');
+    const OtherTask = document.querySelector('#other-item');
+    const goalsContainer = document.querySelector('.goalsdiv');
+
+    function renderTask(){
+        let sumMind = '';
+        let sumBody = '';
+        let sumWork = '';
+        let sumOther = '';
+
+        mindTask.forEach(function(elem, idx){
+            sumMind += `<div class='type'>
+                <details>
+                    <summary>
+                        <h6>${elem.task}</h6>
+                    </summary>
+                    <p>${elem.details}</p>
+                </details>
+                <button data-type='mind' data-index='${idx}'>Mark</button>
+            </div>`;
+        });
+        MindTask.innerHTML = sumMind;
+
+        bodyTask.forEach(function(elem, idx){
+            sumBody += `<div class='type'>
+                <details>
+                    <summary>
+                        <h6>${elem.task}</h6>
+                    </summary>
+                    <p>${elem.details}</p>
+                </details>
+                <button data-type='body' data-index='${idx}'>Mark</button>
+            </div>`;
+        });
+        BodyTask.innerHTML = sumBody;
+
+        workTask.forEach(function(elem, idx){
+            sumWork += `<div class='type'>
+                <details>
+                    <summary>
+                        <h6>${elem.task}</h6>
+                    </summary>
+                    <p>${elem.details}</p>
+                </details>
+                <button data-type='work' data-index='${idx}'>Mark</button>
+            </div>`;
+        });
+        WorkTask.innerHTML = sumWork;
+
+        otherTask.forEach(function(elem, idx){
+            sumOther += `<div class='type'>
+                <details>
+                    <summary>
+                        <h6>${elem.task}</h6>
+                    </summary>
+                    <p>${elem.details}</p>
+                </details>
+                <button data-type='other' data-index='${idx}'>Mark</button>
+            </div>`;
+        });
+        OtherTask.innerHTML = sumOther;
+
+        localStorage.setItem('mindTask', JSON.stringify(mindTask));
+        localStorage.setItem('bodyTask', JSON.stringify(bodyTask));
+        localStorage.setItem('workTask', JSON.stringify(workTask));
+        localStorage.setItem('otherTask', JSON.stringify(otherTask));
     }
-})
+
+    renderTask();
+
+    let taskInput = document.querySelector('#goal-input');
+    let taskDetailsInput = document.querySelector('.formdiv form textarea');
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const selectedGoal = document.querySelector('.formdiv form .goals input[name="goal"]:checked');
+        if(taskInput.value == '' || taskDetailsInput.value == ''){
+            alert('Please enter a task and description');
+            return;
+        }
+        if(!selectedGoal){
+            alert('Please select a goal category');
+            return;
+        }
+
+        const newTask = {
+            task: taskInput.value,
+            details: taskDetailsInput.value
+        };
+
+        if(selectedGoal.id === 'mind') mindTask.push(newTask);
+        else if(selectedGoal.id === 'body') bodyTask.push(newTask);
+        else if(selectedGoal.id === 'work') workTask.push(newTask);
+        else if(selectedGoal.id === 'other') otherTask.push(newTask);
+
+        renderTask();
+        form.reset();
+    });
+
+    goalsContainer.addEventListener('click', function(e){
+        const button = e.target.closest('button[data-type][data-index]');
+        if(!button) return;
+        const type = button.dataset.type;
+        const index = parseInt(button.dataset.index, 10);
+
+        if(type === 'mind') mindTask.splice(index, 1);
+        else if(type === 'body') bodyTask.splice(index, 1);
+        else if(type === 'work') workTask.splice(index, 1);
+        else if(type === 'other') otherTask.splice(index, 1);
+
+        renderTask();
+    });
+}
+DailyGoals();

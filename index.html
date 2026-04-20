@@ -119,6 +119,41 @@
         <section class="fullElements daily-goals-fullpage">
             <button class="back" id="4">Close</button>
             <h2>Daily Goals</h2>
+
+            <div class="dailydiv">
+                <div class="formdiv">
+                    <form>
+                        <input id="goal-input" type="text" placeholder="Add a new goal">
+                        <textarea placeholder="Goal Description"></textarea>
+                        <div class="goals">
+                            <input type="radio" name="goal" id="mind">
+                            <label for="mind">Mind Goal</label>
+                            <input type="radio" name="goal" id="body">
+                            <label for="body">Body Goal</label>
+                            <input type="radio" name="goal" id="work">
+                            <label for="work">Work Goal</label>
+                            <input type="radio" name="goal" id="other">
+                            <label for="other">Other Goal</label>
+                        </div>
+                        <button type="submit" class="btn">Add</button>
+                    </form>
+                </div>
+                <div class="goalsdiv">
+                    <div class="type" id="mind-item">
+                        <h6>Mind Goals</h6>
+                    </div>
+                    <div class="type" id="body-item">
+                        <h6>Body Goals</h6>
+                    </div>
+                    <div class="type" id="work-item">
+                        <h6>Work Goals</h6>
+                    </div>
+                    <div class="type" id="other-item">
+                        <h6>Other Goals</h6>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <button class="theme day"></button>
